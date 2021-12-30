@@ -2,8 +2,6 @@
 #include <AFMotor.h>
 #include <Servo.h>
 
-#define PROXIMITY_LED_PIN 12
-#define DRIVING_LED_PIN 11
 #define TRIG_PIN A4
 #define ECHO_PIN A5
 #define OBSTACLE_SAFE_DIST_INCHES 6
@@ -12,7 +10,7 @@
 #define SERVO_STRAIGHT 90
 #define SERVO_RIGHT 180
 
-enum State { initial, startSignalInProgress, driving, stopped };
+enum State { initial, startSignalInProgress, readyToDrive, driving, stopped };
 
 NewPing pinger(TRIG_PIN, ECHO_PIN, MAX_SENSOR_DISTANCE);
 
@@ -24,38 +22,40 @@ void setup() {
   servo.attach(9); // 10, which I believe is the other option, didn't work for some reason
   servo.write(90);
   pinMode(LED_BUILTIN, OUTPUT);
-  pinMode(PROXIMITY_LED_PIN, OUTPUT);
-  pinMode(DRIVING_LED_PIN, OUTPUT);
 
   motor.setSpeed(0);
   motor.run(RELEASE);
   motor.run(FORWARD);
   
-  ledBlink(DRIVING_LED_PIN, 3); // Bootup signal
+  ledBlink(LED_BUILTIN, 3); // Bootup signal
 }
 
 void loop() {
   int sensedObstacleDistInches = getObstacleDistanceInches();
-  alertIfObstacle(sensedObstacleDistInches);
   switch (state) {
     case initial:
       if (pingSensorBlocked(sensedObstacleDistInches)) {
         state = startSignalInProgress;
-        ledBlink(DRIVING_LED_PIN, 1);
+        ledBlink(LED_BUILTIN, 1);
       }
       break;
     case startSignalInProgress:
     case stopped:
       if (pathIsClear(sensedObstacleDistInches)) {
-        state = driving;
+        state = readyToDrive;
+      }
+      break;
+    case readyToDrive:
+      if (pathIsClear(sensedObstacleDistInches)) {
         startDriving();
+        state = driving;
       }
       break;
     default: // driving
       if (!pathIsClear(sensedObstacleDistInches)) {
-        state = stopped;
         stopDriving();
         lookAround();
+        state = stopped;
       }
   }
   loopEnd();
@@ -69,33 +69,26 @@ bool pathIsClear(int sensedObstacleDistInches) {
   return sensedObstacleDistInches > OBSTACLE_SAFE_DIST_INCHES;
 }
 
-void alertIfObstacle(int sensedObstacleDistInches) {
+void driveIfClear(int sensedObstacleDistInches) {
       if (!pathIsClear(sensedObstacleDistInches)) {
-        proximityLedOn();
+        stopDriving();
+        ledBlink(LED_BUILTIN, 3);
       } else {
-        proximityLedOff();
+        startDriving();
       }
 }
 
 void startDriving() {
-  digitalWrite(DRIVING_LED_PIN, HIGH);
+  digitalWrite(LED_BUILTIN, HIGH);
   motor.setSpeed(5);
   //motor.run(FORWARD);
   //motor.run(RELEASE);
 }
 
 void stopDriving() {
-  digitalWrite(DRIVING_LED_PIN, LOW);
+  digitalWrite(LED_BUILTIN, LOW);
   motor.setSpeed(0);
   //motor.run(BRAKE);
-}
-
-void proximityLedOn() {
-  digitalWrite(PROXIMITY_LED_PIN, HIGH);
-}
-
-void proximityLedOff() {
-  digitalWrite(PROXIMITY_LED_PIN, LOW);
 }
 
 void ledBlink(int pin, int numBlinks) {
