@@ -14,9 +14,12 @@
 #define DRIVING_SPEED 100
 #define LEFT_WHEEL_FORWARD FORWARD
 #define RIGHT_WHEEL_FORWARD BACKWARD
+#define LEFT_WHEEL_BACKWARD BACKWARD
+#define RIGHT_WHEEL_BACKWARD FORWARD
 
 
-enum State { initial, startSignalInProgress, readyToDrive, driving, stopped };
+enum State {initial, startSignalInProgress, readyToDrive, driving, stopped};
+enum Direction {left, straight, right, none};
 
 NewPing pinger(TRIG_PIN, ECHO_PIN, MAX_SENSOR_DISTANCE);
 
@@ -65,8 +68,13 @@ void loop() {
     default: // driving
       if (!pathIsClear(sensedObstacleDistInches)) {
         stopDriving();
-        lookAround();
         state = stopped;
+        Direction safeDirection = getSafeDirection();
+        if (safeDirection == left) {
+          turnLeft();
+        } else if (safeDirection == right) {
+          turnRight();
+        }
       }
   }
   loopEnd();
@@ -101,6 +109,30 @@ void stopDriving() {
   motorRight.setSpeed(0);
 }
 
+void turnRight() {
+  motorLeft.run(LEFT_WHEEL_FORWARD);
+  motorRight.run(RIGHT_WHEEL_BACKWARD);
+  motorLeft.setSpeed(100);
+  motorRight.setSpeed(100);
+  delay(500);
+  motorLeft.run(LEFT_WHEEL_FORWARD);
+  motorRight.run(RIGHT_WHEEL_FORWARD);
+  motorLeft.setSpeed(0);
+  motorRight.setSpeed(0);
+}
+
+void turnLeft() {
+  motorLeft.run(LEFT_WHEEL_BACKWARD);
+  motorRight.run(RIGHT_WHEEL_FORWARD);
+  motorLeft.setSpeed(100);
+  motorRight.setSpeed(100);
+  delay(500);
+  motorLeft.run(LEFT_WHEEL_FORWARD);
+  motorRight.run(RIGHT_WHEEL_FORWARD);
+  motorLeft.setSpeed(0);
+  motorRight.setSpeed(0);
+}
+
 void ledBlink(int pin, int numBlinks) {
   for (int i=0; i<numBlinks; i++) {
     digitalWrite(pin, HIGH);
@@ -110,21 +142,32 @@ void ledBlink(int pin, int numBlinks) {
   }
 }
 
-void lookAround() {
+Direction getSafeDirection() {
   int servoAngle;
-  for (servoAngle = SERVO_STRAIGHT; servoAngle <= SERVO_RIGHT; servoAngle += 1) {
-    servo.write(servoAngle);
-    delay(15);
-  }
-  for (servoAngle = SERVO_RIGHT; servoAngle >= SERVO_LEFT; servoAngle -= 1) {
-    servo.write(servoAngle);
-    delay(15);
-  }
-  for (servoAngle = SERVO_LEFT; servoAngle <= SERVO_STRAIGHT; servoAngle += 1) {
-    servo.write(servoAngle);
-    delay(15);
-  }
+  int leftDistance = 0;
+  int rightDistance = 0;
+
+  servo.write(SERVO_RIGHT);
+  delay(500);
+  rightDistance = getObstacleDistanceInches();
+
+  servo.write(SERVO_LEFT);
+  delay(1000);
+  leftDistance = getObstacleDistanceInches();
+  
   servo.write(SERVO_STRAIGHT);
+
+  if (leftDistance > rightDistance) {
+    if (pathIsClear(leftDistance)) {
+      return left;
+    }
+  } else {
+    if (pathIsClear(rightDistance)) {
+      return right;
+    }
+  }
+
+  return none;
 }
 
 int getObstacleDistanceInches() {
