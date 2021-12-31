@@ -7,9 +7,6 @@ AF_DCMotor motorLeft(1);
 AF_DCMotor motorRight(2);
 
 Drive::Drive() {
-}
-
-void Drive::init() {
 	motorLeft.setSpeed(0);
 	motorLeft.run(RELEASE);
 	motorLeft.run(LEFT_WHEEL_FORWARD);

@@ -24,7 +24,6 @@ void setup() {
   servo.attach(9); // 10, which I believe is the other option, didn't work for some reason
   servo.write(90);
   pinMode(LED_BUILTIN, OUTPUT);
-  drive.init();
   ledBlink(LED_BUILTIN, 3); // Bootup signal
 }
 
