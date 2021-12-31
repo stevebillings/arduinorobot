@@ -1,6 +1,7 @@
 #include <NewPing.h> 
 #include <AFMotor.h>
 #include <Servo.h>
+#include "drive.h"
 
 #define TRIG_PIN A4
 #define ECHO_PIN A5
@@ -10,37 +11,20 @@
 #define SERVO_STRAIGHT 90
 #define SERVO_RIGHT 180
 
-// Wheel DC motors
-#define DRIVING_SPEED 100
-#define LEFT_WHEEL_FORWARD FORWARD
-#define RIGHT_WHEEL_FORWARD BACKWARD
-#define LEFT_WHEEL_BACKWARD BACKWARD
-#define RIGHT_WHEEL_BACKWARD FORWARD
-
-
 enum State {initial, startSignalInProgress, readyToDrive, driving, stopped};
 enum Direction {left, straight, right, none};
 
 NewPing pinger(TRIG_PIN, ECHO_PIN, MAX_SENSOR_DISTANCE);
 
+Drive drive;
 Servo servo;
-AF_DCMotor motorLeft(1);
-AF_DCMotor motorRight(2);
 State state = initial;
 
 void setup() {
   servo.attach(9); // 10, which I believe is the other option, didn't work for some reason
   servo.write(90);
   pinMode(LED_BUILTIN, OUTPUT);
-
-  motorLeft.setSpeed(0);
-  motorLeft.run(RELEASE);
-  motorLeft.run(LEFT_WHEEL_FORWARD);
-  
-  motorRight.setSpeed(0);
-  motorRight.run(RELEASE);
-  motorRight.run(RIGHT_WHEEL_FORWARD);
-  
+  drive.init();
   ledBlink(LED_BUILTIN, 3); // Bootup signal
 }
 
@@ -61,19 +45,19 @@ void loop() {
       break;
     case readyToDrive:
       if (pathIsClear(sensedObstacleDistInches)) {
-        startDriving();
+        drive.forward();
         state = driving;
       }
       break;
     default: // driving
       if (!pathIsClear(sensedObstacleDistInches)) {
-        stopDriving();
+        drive.stop();
         state = stopped;
         Direction safeDirection = getSafeDirection();
         if (safeDirection == left) {
-          turnLeft();
+          drive.turnLeft();
         } else if (safeDirection == right) {
-          turnRight();
+          drive.turnRight();
         }
       }
   }
@@ -90,47 +74,11 @@ bool pathIsClear(int sensedObstacleDistInches) {
 
 void driveIfClear(int sensedObstacleDistInches) {
       if (!pathIsClear(sensedObstacleDistInches)) {
-        stopDriving();
+        drive.stop();
         ledBlink(LED_BUILTIN, 3);
       } else {
-        startDriving();
+        drive.forward();
       }
-}
-
-void startDriving() {
-  digitalWrite(LED_BUILTIN, HIGH);
-  motorLeft.setSpeed(DRIVING_SPEED);
-  motorRight.setSpeed(DRIVING_SPEED);
-}
-
-void stopDriving() {
-  digitalWrite(LED_BUILTIN, LOW);
-  motorLeft.setSpeed(0);
-  motorRight.setSpeed(0);
-}
-
-void turnRight() {
-  motorLeft.run(LEFT_WHEEL_FORWARD);
-  motorRight.run(RIGHT_WHEEL_BACKWARD);
-  motorLeft.setSpeed(100);
-  motorRight.setSpeed(100);
-  delay(500);
-  motorLeft.run(LEFT_WHEEL_FORWARD);
-  motorRight.run(RIGHT_WHEEL_FORWARD);
-  motorLeft.setSpeed(0);
-  motorRight.setSpeed(0);
-}
-
-void turnLeft() {
-  motorLeft.run(LEFT_WHEEL_BACKWARD);
-  motorRight.run(RIGHT_WHEEL_FORWARD);
-  motorLeft.setSpeed(100);
-  motorRight.setSpeed(100);
-  delay(500);
-  motorLeft.run(LEFT_WHEEL_FORWARD);
-  motorRight.run(RIGHT_WHEEL_FORWARD);
-  motorLeft.setSpeed(0);
-  motorRight.setSpeed(0);
 }
 
 void ledBlink(int pin, int numBlinks) {
