@@ -4,18 +4,25 @@
 
 #define TRIG_PIN A4
 #define ECHO_PIN A5
-#define OBSTACLE_SAFE_DIST_INCHES 6
+#define OBSTACLE_SAFE_DIST_INCHES 20
 #define START_SIGNAL_DIST_INCHES 2
 #define SERVO_LEFT 0
 #define SERVO_STRAIGHT 90
 #define SERVO_RIGHT 180
+
+// Wheel DC motors
+#define DRIVING_SPEED 100
+#define LEFT_WHEEL_FORWARD FORWARD
+#define RIGHT_WHEEL_FORWARD BACKWARD
+
 
 enum State { initial, startSignalInProgress, readyToDrive, driving, stopped };
 
 NewPing pinger(TRIG_PIN, ECHO_PIN, MAX_SENSOR_DISTANCE);
 
 Servo servo;
-AF_DCMotor motor(1);
+AF_DCMotor motorLeft(1);
+AF_DCMotor motorRight(2);
 State state = initial;
 
 void setup() {
@@ -23,9 +30,13 @@ void setup() {
   servo.write(90);
   pinMode(LED_BUILTIN, OUTPUT);
 
-  motor.setSpeed(0);
-  motor.run(RELEASE);
-  motor.run(FORWARD);
+  motorLeft.setSpeed(0);
+  motorLeft.run(RELEASE);
+  motorLeft.run(LEFT_WHEEL_FORWARD);
+  
+  motorRight.setSpeed(0);
+  motorRight.run(RELEASE);
+  motorRight.run(RIGHT_WHEEL_FORWARD);
   
   ledBlink(LED_BUILTIN, 3); // Bootup signal
 }
@@ -80,15 +91,14 @@ void driveIfClear(int sensedObstacleDistInches) {
 
 void startDriving() {
   digitalWrite(LED_BUILTIN, HIGH);
-  motor.setSpeed(5);
-  //motor.run(FORWARD);
-  //motor.run(RELEASE);
+  motorLeft.setSpeed(DRIVING_SPEED);
+  motorRight.setSpeed(DRIVING_SPEED);
 }
 
 void stopDriving() {
   digitalWrite(LED_BUILTIN, LOW);
-  motor.setSpeed(0);
-  //motor.run(BRAKE);
+  motorLeft.setSpeed(0);
+  motorRight.setSpeed(0);
 }
 
 void ledBlink(int pin, int numBlinks) {
