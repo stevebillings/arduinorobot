@@ -1,10 +1,8 @@
-#include <NewPing.h> 
 #include <AFMotor.h>
 #include <Servo.h>
-#include "drive.h"
+#include "Drive.h"
+#include "Pinger.h"
 
-#define TRIG_PIN A4
-#define ECHO_PIN A5
 #define OBSTACLE_SAFE_DIST_INCHES 20
 #define START_SIGNAL_DIST_INCHES 2
 #define SERVO_LEFT 0
@@ -14,9 +12,8 @@
 enum State {initial, startSignalInProgress, readyToDrive, driving, stopped};
 enum Direction {left, straight, right, none};
 
-NewPing pinger(TRIG_PIN, ECHO_PIN, MAX_SENSOR_DISTANCE);
-
 Drive drive;
+Pinger pinger(A4, A5);
 Servo servo;
 State state = initial;
 
@@ -28,7 +25,7 @@ void setup() {
 }
 
 void loop() {
-  int sensedObstacleDistInches = getObstacleDistanceInches();
+  int sensedObstacleDistInches = pinger.getObstacleDistanceInches();
   switch (state) {
     case initial:
       if (pingSensorBlocked(sensedObstacleDistInches)) {
@@ -96,11 +93,11 @@ Direction getSafeDirection() {
 
   servo.write(SERVO_RIGHT);
   delay(500);
-  rightDistance = getObstacleDistanceInches();
+  rightDistance = pinger.getObstacleDistanceInches();
 
   servo.write(SERVO_LEFT);
   delay(1000);
-  leftDistance = getObstacleDistanceInches();
+  leftDistance = pinger.getObstacleDistanceInches();
   
   servo.write(SERVO_STRAIGHT);
 
@@ -115,18 +112,6 @@ Direction getSafeDirection() {
   }
 
   return none;
-}
-
-int getObstacleDistanceInches() {
-  delay(60);
-  int numReadings = 4;
-  int sumOfReadings = 0;
-  for (int i=0; i<numReadings; i++) {
-    delay(10);
-    unsigned int uS = pinger.ping();
-    sumOfReadings += uS/US_ROUNDTRIP_IN;
-  }
-  return sumOfReadings/numReadings;
 }
 
 void loopEnd() {
