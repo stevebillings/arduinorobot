@@ -1,5 +1,3 @@
-#include <AFMotor.h>
-#include <Servo.h>
 #include "Drive.h"
 #include "Pinger.h"
 #include "Turret.h"
@@ -84,7 +82,6 @@ void ledBlink(int pin, int numBlinks) {
 }
 
 Direction getSafeDirection() {
-  int servoAngle;
   int leftDistance = 0;
   int rightDistance = 0;
 
