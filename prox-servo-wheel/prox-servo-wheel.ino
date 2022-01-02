@@ -2,24 +2,21 @@
 #include <Servo.h>
 #include "Drive.h"
 #include "Pinger.h"
+#include "Turret.h"
 
 #define OBSTACLE_SAFE_DIST_INCHES 20
 #define START_SIGNAL_DIST_INCHES 2
-#define SERVO_LEFT 0
-#define SERVO_STRAIGHT 90
-#define SERVO_RIGHT 180
 
 enum State {initial, startSignalInProgress, readyToDrive, driving, stopped};
 enum Direction {left, straight, right, none};
 
 Drive drive;
 Pinger pinger(A4, A5);
-Servo servo;
+Turret turret(9);
+
 State state = initial;
 
 void setup() {
-  servo.attach(9); // 10, which I believe is the other option, didn't work for some reason
-  servo.write(90);
   pinMode(LED_BUILTIN, OUTPUT);
   ledBlink(LED_BUILTIN, 3); // Bootup signal
 }
@@ -91,15 +88,13 @@ Direction getSafeDirection() {
   int leftDistance = 0;
   int rightDistance = 0;
 
-  servo.write(SERVO_RIGHT);
-  delay(500);
+  turret.aimRight();
   rightDistance = pinger.getObstacleDistanceInches();
 
-  servo.write(SERVO_LEFT);
-  delay(1000);
+  turret.aimLeft();
   leftDistance = pinger.getObstacleDistanceInches();
   
-  servo.write(SERVO_STRAIGHT);
+  turret.aimStraight();
 
   if (leftDistance > rightDistance) {
     if (pathIsClear(leftDistance)) {
