@@ -16,7 +16,7 @@ Drive::Drive() {
 	motorRight.run(RIGHT_WHEEL_FORWARD);
 }
 
-void Drive::forward() {
+void Drive::startForward() {
 	motorLeft.setSpeed(DRIVING_SPEED);
 	motorRight.setSpeed(DRIVING_SPEED);
 }

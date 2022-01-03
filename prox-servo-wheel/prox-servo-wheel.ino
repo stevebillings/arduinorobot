@@ -36,7 +36,7 @@ void loop() {
       break;
     case readyToDrive:
       if (pathIsClear(sensedObstacleDistInches)) {
-        drive.forward();
+        drive.startForward();
         state = driving;
       }
       break;
@@ -61,15 +61,6 @@ bool pingSensorBlocked(int sensedObstacleDistInches) {
 
 bool pathIsClear(int sensedObstacleDistInches) {
   return sensedObstacleDistInches > OBSTACLE_SAFE_DIST_INCHES;
-}
-
-void driveIfClear(int sensedObstacleDistInches) {
-      if (!pathIsClear(sensedObstacleDistInches)) {
-        drive.stop();
-        ledBlink(LED_BUILTIN, 3);
-      } else {
-        drive.forward();
-      }
 }
 
 void ledBlink(int pin, int numBlinks) {
