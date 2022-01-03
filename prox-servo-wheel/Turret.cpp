@@ -15,6 +15,16 @@ void Turret::aimRight() {
 	toAngle(SERVO_RIGHT);
 }
 
+void Turret::aimLeft() {
+  toAngle(SERVO_LEFT);
+}
+
+void Turret::aimStraight() {
+  toAngle(SERVO_STRAIGHT);
+}
+
+// private
+
 void Turret::toAngle(int targetAngle) {
 	int incr;
 	if (currentAngle == targetAngle) {
@@ -32,12 +42,4 @@ void Turret::toAngle(int targetAngle) {
 		servo.write(currentAngle);
 		delay(50);
 	}
-}
-
-void Turret::aimLeft() {
-	toAngle(SERVO_LEFT);
-}
-
-void Turret::aimStraight() {
-	toAngle(SERVO_STRAIGHT);
 }
