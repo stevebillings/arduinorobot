@@ -8,20 +8,36 @@
 
 Turret::Turret(unsigned int pwmPin) {
 	servo.attach(pwmPin);
-	servo.write(SERVO_STRAIGHT);
+	toAngle(SERVO_STRAIGHT);
 }
 
 void Turret::aimRight() {
-	servo.write(SERVO_RIGHT);
-	delay(1000);
+	toAngle(SERVO_RIGHT);
+}
+
+void Turret::toAngle(int targetAngle) {
+	int incr;
+	if (currentAngle == targetAngle) {
+		// make sure (might be initializing)
+		servo.write(currentAngle);
+		delay(500);
+		return;
+	}
+	if (currentAngle < targetAngle) {
+		incr = 1;
+	} else {
+		incr = -1;
+	}
+	for ( ; currentAngle != targetAngle; currentAngle += incr) {
+		servo.write(currentAngle);
+		delay(50);
+	}
 }
 
 void Turret::aimLeft() {
-	servo.write(SERVO_LEFT);
-	delay(1000);
+	toAngle(SERVO_LEFT);
 }
 
 void Turret::aimStraight() {
-	servo.write(SERVO_STRAIGHT);
-	delay(1000);
+	toAngle(SERVO_STRAIGHT);
 }

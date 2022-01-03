@@ -9,4 +9,6 @@ class Turret {
 
 	private:
 		Servo servo;
+		int currentAngle;
+		void toAngle(int targetAngle);
 };
