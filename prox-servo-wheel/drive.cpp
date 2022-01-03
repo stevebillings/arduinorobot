@@ -2,6 +2,12 @@
 #include <Arduino.h>
 #include <AFMotor.h>
 
+#define DRIVING_SPEED_RIGHT 100
+#define DRIVING_SPEED_LEFT 105
+#define LEFT_WHEEL_FORWARD FORWARD
+#define RIGHT_WHEEL_FORWARD BACKWARD
+#define LEFT_WHEEL_BACKWARD BACKWARD
+#define RIGHT_WHEEL_BACKWARD FORWARD
 
 AF_DCMotor motorLeft(1);
 AF_DCMotor motorRight(2);
@@ -17,8 +23,8 @@ Drive::Drive() {
 }
 
 void Drive::startForward() {
-	motorLeft.setSpeed(DRIVING_SPEED);
-	motorRight.setSpeed(DRIVING_SPEED);
+	motorLeft.setSpeed(DRIVING_SPEED_LEFT);
+	motorRight.setSpeed(DRIVING_SPEED_RIGHT);
 }
 
 void Drive::stop() {
@@ -29,8 +35,8 @@ void Drive::stop() {
 void Drive::turnRight() {
 	motorLeft.run(LEFT_WHEEL_FORWARD);
 	motorRight.run(RIGHT_WHEEL_BACKWARD);
-	motorLeft.setSpeed(100);
-	motorRight.setSpeed(100);
+	motorLeft.setSpeed(DRIVING_SPEED_LEFT);
+	motorRight.setSpeed(DRIVING_SPEED_RIGHT);
 	delay(500);
 	motorLeft.run(LEFT_WHEEL_FORWARD);
 	motorRight.run(RIGHT_WHEEL_FORWARD);
@@ -41,8 +47,8 @@ void Drive::turnRight() {
 void Drive::turnLeft() {
 	motorLeft.run(LEFT_WHEEL_BACKWARD);
 	motorRight.run(RIGHT_WHEEL_FORWARD);
-	motorLeft.setSpeed(100);
-	motorRight.setSpeed(100);
+	motorLeft.setSpeed(DRIVING_SPEED_LEFT);
+	motorRight.setSpeed(DRIVING_SPEED_RIGHT);
 	delay(500);
 	motorLeft.run(LEFT_WHEEL_FORWARD);
 	motorRight.run(RIGHT_WHEEL_FORWARD);
