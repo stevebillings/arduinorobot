@@ -55,3 +55,8 @@ void Drive::turnLeft() {
 	motorLeft.setSpeed(0);
 	motorRight.setSpeed(0);
 }
+
+void Drive::turnAround() {
+  turnLeft();
+  turnLeft();
+}

@@ -13,6 +13,7 @@ Pinger pinger(A4, A5);
 Turret turret(9);
 
 State state = initial;
+int stuckCount = 0;
 
 void setup() {
   pinMode(LED_BUILTIN, OUTPUT);
@@ -20,6 +21,7 @@ void setup() {
 }
 
 void loop() {
+  
   int sensedObstacleDistInches = pinger.getObstacleDistanceInches();
   switch (state) {
     case initial:
@@ -29,27 +31,44 @@ void loop() {
       }
       break;
     case startSignalInProgress:
+      if (pathIsClear(sensedObstacleDistInches)) {
+        state = readyToDrive;
+      }
+      break;
     case stopped:
       if (pathIsClear(sensedObstacleDistInches)) {
         state = readyToDrive;
+      } else {
+        Direction safeDirection = getSafeDirection();
+        if (safeDirection == left) {
+          drive.turnLeft();
+        } else if (safeDirection == right) {
+          drive.turnRight();
+        } else if (safeDirection == straight) {
+          state = readyToDrive;
+        } else {
+          drive.turnAround();
+          stuckCount++;
+          if (stuckCount > 4) {
+            state = initial;
+            stuckCount = 0;
+          }
+        }
       }
       break;
     case readyToDrive:
       if (pathIsClear(sensedObstacleDistInches)) {
         drive.startForward();
         state = driving;
+        stuckCount = 0;
       }
       break;
     default: // driving
-      if (!pathIsClear(sensedObstacleDistInches)) {
+      if (pathIsClear(sensedObstacleDistInches)) {
+        stuckCount = 0;
+      } else {
         drive.stop();
         state = stopped;
-        Direction safeDirection = getSafeDirection();
-        if (safeDirection == left) {
-          drive.turnLeft();
-        } else if (safeDirection == right) {
-          drive.turnRight();
-        }
       }
   }
   loopEnd();
