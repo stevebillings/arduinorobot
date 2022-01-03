@@ -7,20 +7,22 @@
 #define SERVO_RIGHT 180
 
 Turret::Turret(unsigned int pwmPin) {
-	servo.attach(pwmPin);
-	toAngle(SERVO_STRAIGHT);
+  // NOTHING works when this class is UNcommented!
+	//servo.attach(pwmPin);
+  //currentAngle = SERVO_STRAIGHT;
+	//toAngle(SERVO_STRAIGHT);
 }
 
 void Turret::aimRight() {
-	toAngle(SERVO_RIGHT);
+	//toAngle(SERVO_RIGHT);
 }
 
 void Turret::aimLeft() {
-  toAngle(SERVO_LEFT);
+  //toAngle(SERVO_LEFT);
 }
 
 void Turret::aimStraight() {
-  toAngle(SERVO_STRAIGHT);
+  //toAngle(SERVO_STRAIGHT);
 }
 
 // private
