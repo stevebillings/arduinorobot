@@ -8,6 +8,7 @@
 #define RIGHT_WHEEL_FORWARD BACKWARD
 #define LEFT_WHEEL_BACKWARD BACKWARD
 #define RIGHT_WHEEL_BACKWARD FORWARD
+#define QUARTER_TURN_DURATION 200
 
 AF_DCMotor motorLeft(1);
 AF_DCMotor motorRight(2);
@@ -37,7 +38,7 @@ void Drive::turnRight() {
 	motorRight.run(RIGHT_WHEEL_BACKWARD);
 	motorLeft.setSpeed(DRIVING_SPEED_LEFT);
 	motorRight.setSpeed(DRIVING_SPEED_RIGHT);
-	delay(500);
+	delay(QUARTER_TURN_DURATION);
 	motorLeft.run(LEFT_WHEEL_FORWARD);
 	motorRight.run(RIGHT_WHEEL_FORWARD);
 	motorLeft.setSpeed(0);
@@ -49,7 +50,7 @@ void Drive::turnLeft() {
 	motorRight.run(RIGHT_WHEEL_FORWARD);
 	motorLeft.setSpeed(DRIVING_SPEED_LEFT);
 	motorRight.setSpeed(DRIVING_SPEED_RIGHT);
-	delay(500);
+	delay(QUARTER_TURN_DURATION);
 	motorLeft.run(LEFT_WHEEL_FORWARD);
 	motorRight.run(RIGHT_WHEEL_FORWARD);
 	motorLeft.setSpeed(0);
