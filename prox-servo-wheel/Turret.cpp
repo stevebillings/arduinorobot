@@ -2,46 +2,61 @@
 #include <Servo.h>
 #include "Turret.h"
 
-#define SERVO_LEFT 0
-#define SERVO_STRAIGHT 90
-#define SERVO_RIGHT 180
+#define SERVO_LEFT 180
+#define SERVO_RIGHT 10
+#define SHORT_DELAY 25
+#define LEFT_TO_RIGHT_DELTA -1
+#define RIGHT_TO_LEFT_DELTA 1
 
 Turret::Turret(unsigned int pwmPin) {
-  // NOTHING works when this class is UNcommented!
-	//servo.attach(pwmPin);
-  //currentAngle = SERVO_STRAIGHT;
+  // No matter what I write to it, it starts by going far right, and doesn't budge from there
+  servo1.writeMicroseconds(1500);
+	servo1.attach(9);
+  currentAngle = SERVO_STRAIGHT;
+  // TEMP does nothing
+  //servo1.write(50); // temp
+  //delay(1000);
+  //servo1.write(130); // temp
+  //delay(1000);
+  // end TEMP
+  //aimLeft();
+  //aimRight();
+  //aimStraight();
 	//toAngle(SERVO_STRAIGHT);
 }
 
 void Turret::aimRight() {
-	//toAngle(SERVO_RIGHT);
+	toAngle(SERVO_RIGHT);
 }
 
 void Turret::aimLeft() {
-  //toAngle(SERVO_LEFT);
+  toAngle(SERVO_LEFT);
 }
 
 void Turret::aimStraight() {
-  //toAngle(SERVO_STRAIGHT);
+  toAngle(SERVO_STRAIGHT);
 }
 
 // private
 
 void Turret::toAngle(int targetAngle) {
-	int incr;
-	if (currentAngle == targetAngle) {
-		// make sure (might be initializing)
-		servo.write(currentAngle);
-		delay(500);
-		return;
-	}
-	if (currentAngle < targetAngle) {
-		incr = 1;
-	} else {
-		incr = -1;
-	}
-	for ( ; currentAngle != targetAngle; currentAngle += incr) {
-		servo.write(currentAngle);
-		delay(50);
-	}
+  if (currentAngle > targetAngle) {
+    rightToAngle(targetAngle);
+  } else if (currentAngle < targetAngle) {
+    leftToAngle(targetAngle);
+  }
+}
+
+void Turret::rightToAngle(int targetAngle) {
+    for (; currentAngle >= targetAngle; currentAngle += LEFT_TO_RIGHT_DELTA) {
+      servo1.write(currentAngle);
+      delay(SHORT_DELAY);
+  }
+}
+
+void Turret::leftToAngle(int targetAngle) {
+  for (; currentAngle <= targetAngle; currentAngle += RIGHT_TO_LEFT_DELTA) {
+    servo1.write(currentAngle);
+    delay(SHORT_DELAY);
+  }
 }

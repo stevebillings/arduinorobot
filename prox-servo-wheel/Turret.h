@@ -1,5 +1,7 @@
 #include <Servo.h>
 
+#define SERVO_STRAIGHT 100
+
 class Turret {
 	public:
 		Turret(unsigned int pwmPin);
@@ -8,7 +10,9 @@ class Turret {
 		void aimStraight();
 
 	private:
-		Servo servo;
-		int currentAngle;
+		Servo servo1;
+		int currentAngle = SERVO_STRAIGHT;
 		void toAngle(int targetAngle);
+    void rightToAngle(int targetAngle);
+    void leftToAngle(int targetAngle);
 };

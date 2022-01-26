@@ -16,11 +16,16 @@ State state = initial;
 int stuckCount = 0;
 
 void setup() {
-  pinMode(LED_BUILTIN, OUTPUT);
-  ledBlink(LED_BUILTIN, 3); // Bootup signal
+  //pinMode(LED_BUILTIN, OUTPUT);
+  //ledBlink(LED_BUILTIN, 3); // Bootup signal
 }
 
 void loop() {
+  delay(500);
+  //turret.aimLeft();
+  //turret.aimRight();
+  //turret.aimStraight();
+  delay(80000);
   
   int sensedObstacleDistInches = pinger.getObstacleDistanceInches();
   switch (state) {
