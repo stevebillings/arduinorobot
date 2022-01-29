@@ -56,7 +56,7 @@ void Turret::toAngle(int targetAngle) {
 
 void Turret::rightToAngle(int targetAngle) {
 #ifdef FAKE
-	cout << "Moving right:" << endl;
+	cout << "Turret moving right:" << endl;
 #endif
 	for (; currentAngle >= targetAngle; currentAngle += LEFT_TO_RIGHT_DELTA) {
 		servoWrapper->write(currentAngle);
@@ -67,13 +67,13 @@ void Turret::rightToAngle(int targetAngle) {
 	currentAngle -= LEFT_TO_RIGHT_DELTA;
 	adjustMinMax();
 #ifdef FAKE
-	cout << "Done moving right" << endl;
+	cout << "Turret done moving right" << endl;
 #endif
 }
 
 void Turret::leftToAngle(int targetAngle) {
 #ifdef FAKE
-	cout << "Moving left:" << endl;
+	cout << "Turret moving left:" << endl;
 #endif
 	for (; currentAngle <= targetAngle; currentAngle += RIGHT_TO_LEFT_DELTA) {
 		servoWrapper->write(currentAngle);
@@ -84,13 +84,13 @@ void Turret::leftToAngle(int targetAngle) {
 	currentAngle -= RIGHT_TO_LEFT_DELTA;
 	adjustMinMax();
 #ifdef FAKE
-	cout << "Done moving left" << endl;
+	cout << "Turret done moving left" << endl;
 #endif
 }
 
 void Turret::report() {
 #ifdef FAKE
-	cout << "Max: " << maxAngle << "; Min: " << minAngle << endl;
+	cout << "Turret Max: " << maxAngle << "; Min: " << minAngle << endl;
 #endif
 }
 

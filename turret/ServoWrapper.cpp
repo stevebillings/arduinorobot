@@ -18,7 +18,9 @@ using namespace std;
 
 ServoWrapper::ServoWrapper(unsigned int pwmPin) {
 #ifdef FAKE
+#ifdef TRACE
 	cout << "ServoWrapper ctor passed pin: " << pwmPin << endl;
+#endif
 #endif
 	servo = new Servo();
 	servo->attach(pwmPin);
@@ -26,7 +28,9 @@ ServoWrapper::ServoWrapper(unsigned int pwmPin) {
 
 void ServoWrapper::write(unsigned int targetAngle) {
 #ifdef FAKE
+#ifdef TRACE
 	cout << "ServoWrapper::write() passed targetAngle: " << targetAngle << endl;
+#endif
 #else
 	servo->write(targetAngle);
 	delay(20);
