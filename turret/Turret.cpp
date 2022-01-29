@@ -19,8 +19,8 @@ using namespace std;
 #define SERVO_LEFT 180
 #define SERVO_RIGHT 10
 #define SHORT_DELAY 25
-#define LEFT_TO_RIGHT_DELTA -1
-#define RIGHT_TO_LEFT_DELTA 1
+#define LEFT_TO_RIGHT_DELTA -4
+#define RIGHT_TO_LEFT_DELTA 4
 
 Turret::Turret(unsigned int pwmPin) {
 #ifdef FAKE

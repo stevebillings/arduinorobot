@@ -11,5 +11,5 @@ void loop() {
   turret->aimRight();
   turret->aimLeft();
   turret->aimStraight();
-  delay(60000*5);
+  delay(10*1000);
 }

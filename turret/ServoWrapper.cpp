@@ -29,5 +29,6 @@ void ServoWrapper::write(unsigned int targetAngle) {
 	cout << "ServoWrapper::write() passed targetAngle: " << targetAngle << endl;
 #else
 	servo->write(targetAngle);
+	delay(20);
 #endif
 }
