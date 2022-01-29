@@ -119,5 +119,5 @@ Direction getSafeDirection() {
 }
 
 void loopEnd() {
-  delay(100);
+  //delay(100);
 }
