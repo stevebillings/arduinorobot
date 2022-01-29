@@ -22,12 +22,11 @@ using namespace std;
 #define LEFT_TO_RIGHT_DELTA -1
 #define RIGHT_TO_LEFT_DELTA 1
 
-Turret::Turret(unsigned int pwmPin) {
+Turret::Turret(Servo* servo, unsigned int pwmPin) {
 #ifdef FAKE
 	cout << "Turret ctor passed pin: " << pwmPin << endl;
-	cout << "Turret ctor: currentAngle: " << currentAngle << endl;
 #endif
-	servoWrapper = new ServoWrapper(pwmPin); // TODO delete this in dtor
+	servoWrapper = new ServoWrapper(servo, pwmPin); // TODO delete this in dtor
 	currentAngle = SERVO_STRAIGHT;
 	minAngle = currentAngle;
 	maxAngle = currentAngle;

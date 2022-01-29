@@ -9,6 +9,11 @@
 #define TURRET_H_
 
 #include "ServoWrapper.h"
+#ifdef FAKE
+#include "Servo.h"
+#else
+#include <Servo.h>
+#endif
 
 class Turret {
 	private:
@@ -22,7 +27,7 @@ class Turret {
 		void adjustMinMax();
 
 	public:
-		Turret(unsigned int pwmPin);
+		Turret(Servo* servo, unsigned int pwmPin);
 		void aimRight();
 		void aimLeft();
 		void aimStraight();
