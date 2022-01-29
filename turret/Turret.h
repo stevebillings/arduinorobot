@@ -27,7 +27,7 @@ class Turret {
 		void adjustMinMax();
 
 	public:
-		Turret(Servo* servo, unsigned int pwmPin);
+		Turret(unsigned int pwmPin);
 		void aimRight();
 		void aimLeft();
 		void aimStraight();

@@ -16,11 +16,11 @@ using namespace std;
 #endif
 #include "ServoWrapper.h"
 
-ServoWrapper::ServoWrapper(Servo* givenServo, unsigned int pwmPin) {
+ServoWrapper::ServoWrapper(unsigned int pwmPin) {
 #ifdef FAKE
 	cout << "ServoWrapper ctor passed pin: " << pwmPin << endl;
 #endif
-	servo = givenServo;
+	servo = new Servo();
 	servo->attach(pwmPin);
 }
 

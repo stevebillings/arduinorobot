@@ -1,12 +1,9 @@
 #include "Turret.h"
 
-#include <Servo.h>
-Servo* servo;
 Turret* turret;
 
 void setup() {
-  servo = new Servo();
-  turret = new Turret(servo, 9);
+  turret = new Turret(9);
 }
 
 void loop() {
@@ -14,5 +11,5 @@ void loop() {
   turret->aimRight();
   turret->aimLeft();
   turret->aimStraight();
-  delay(60000);
+  delay(60000*5);
 }
