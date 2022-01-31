@@ -22,16 +22,12 @@ class Turret {
 		int minAngle;
 		int maxAngle;
 		void toAngle(int targetAngle);
-		void rightToAngle(int targetAngle);
-		void leftToAngle(int targetAngle);
-		void adjustMinMax();
 
 	public:
 		Turret(unsigned int pwmPin);
 		void aimRight();
 		void aimLeft();
 		void aimStraight();
-		void report();
 };
 
 #endif /* TURRET_H_ */

@@ -47,58 +47,8 @@ void Turret::aimStraight() {
 // private
 
 void Turret::toAngle(int targetAngle) {
-	if (currentAngle > targetAngle) {
-		rightToAngle(targetAngle);
-	} else if (currentAngle < targetAngle) {
-		leftToAngle(targetAngle);
-	}
-}
-
-void Turret::rightToAngle(int targetAngle) {
-#ifdef FAKE
-	cout << "Turret moving right:" << endl;
-#endif
-	for (; currentAngle >= targetAngle; currentAngle += LEFT_TO_RIGHT_DELTA) {
-		servoWrapper->write(currentAngle);
+	servoWrapper->write(targetAngle);
 #ifndef FAKE
-		delay(SHORT_DELAY);
+  delay(750);
 #endif
-	}
-	currentAngle -= LEFT_TO_RIGHT_DELTA;
-	adjustMinMax();
-#ifdef FAKE
-	cout << "Turret done moving right" << endl;
-#endif
-}
-
-void Turret::leftToAngle(int targetAngle) {
-#ifdef FAKE
-	cout << "Turret moving left:" << endl;
-#endif
-	for (; currentAngle <= targetAngle; currentAngle += RIGHT_TO_LEFT_DELTA) {
-		servoWrapper->write(currentAngle);
-#ifndef FAKE
-		delay(SHORT_DELAY);
-#endif
-	}
-	currentAngle -= RIGHT_TO_LEFT_DELTA;
-	adjustMinMax();
-#ifdef FAKE
-	cout << "Turret done moving left" << endl;
-#endif
-}
-
-void Turret::report() {
-#ifdef FAKE
-	cout << "Turret Max: " << maxAngle << "; Min: " << minAngle << endl;
-#endif
-}
-
-void Turret::adjustMinMax() {
-	if (currentAngle < minAngle) {
-		minAngle = currentAngle;
-	}
-	if (currentAngle > maxAngle) {
-		maxAngle = currentAngle;
-	}
 }

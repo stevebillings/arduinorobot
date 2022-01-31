@@ -8,18 +8,18 @@ using namespace std;
 #include <AFMotor.h>
 #endif
 
-#define DRIVING_SPEED_RIGHT 100
-#define DRIVING_SPEED_LEFT 108
-#define LEFT_WHEEL_FORWARD FORWARD
-#define LEFT_WHEEL_BACKWARD BACKWARD
-// Apparently I reversed +/- on the right wheel
-#define RIGHT_WHEEL_FORWARD BACKWARD
-#define RIGHT_WHEEL_BACKWARD FORWARD
+#define DRIVING_SPEED_RIGHT 108
+#define DRIVING_SPEED_LEFT 100
+// Apparently I reversed +/- on the left wheel
+#define LEFT_WHEEL_FORWARD BACKWARD
+#define LEFT_WHEEL_BACKWARD FORWARD
+#define RIGHT_WHEEL_FORWARD FORWARD
+#define RIGHT_WHEEL_BACKWARD BACKWARD
 #define QUARTER_TURN_DURATION 800
 
 #ifndef FAKE
-AF_DCMotor motorLeft(1);
-AF_DCMotor motorRight(2);
+AF_DCMotor motorLeft(2);
+AF_DCMotor motorRight(1);
 #endif
 
 Drive::Drive() {
@@ -40,6 +40,8 @@ void Drive::startForward() {
 #ifdef FAKE
 	printf("Drive: starting forward...\n");
 #else
+  motorLeft.run(LEFT_WHEEL_FORWARD);
+  motorRight.run(RIGHT_WHEEL_FORWARD);
 	motorLeft.setSpeed(DRIVING_SPEED_LEFT);
 	motorRight.setSpeed(DRIVING_SPEED_RIGHT);
 #endif
@@ -79,10 +81,10 @@ void Drive::turnLeft() {
 	motorLeft.setSpeed(DRIVING_SPEED_LEFT);
 	motorRight.setSpeed(DRIVING_SPEED_RIGHT);
 	delay(QUARTER_TURN_DURATION);
+  motorLeft.setSpeed(0);
+  motorRight.setSpeed(0);
 	motorLeft.run(LEFT_WHEEL_FORWARD);
 	motorRight.run(RIGHT_WHEEL_FORWARD);
-	motorLeft.setSpeed(0);
-	motorRight.setSpeed(0);
 #endif
 }
 

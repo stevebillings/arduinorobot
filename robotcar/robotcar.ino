@@ -2,7 +2,7 @@
 #include "Drive.h"
 #include "Pinger.h"
 
-#define OBSTACLE_SAFE_DIST_INCHES 20
+#define OBSTACLE_SAFE_DIST_INCHES 6
 #define START_SIGNAL_DIST_INCHES 2
 
 enum State {initial, startSignalInProgress, readyToDrive, driving, stopped};
