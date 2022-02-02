@@ -8,7 +8,7 @@ using namespace std;
 #include <AFMotor.h>
 #endif
 
-#define DRIVING_SPEED_RIGHT 108
+#define DRIVING_SPEED_RIGHT 110
 #define DRIVING_SPEED_LEFT 100
 // Apparently I reversed +/- on the left wheel
 #define LEFT_WHEEL_FORWARD BACKWARD
