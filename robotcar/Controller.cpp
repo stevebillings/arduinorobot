@@ -1,3 +1,5 @@
+#include "Mode.h"
+#include "Mock.h"
 #include "Turret.h"
 #include "Drive.h"
 #include "Pinger.h"
@@ -8,17 +10,16 @@
 
 enum State {initial, startSignalInProgress, readyToDrive, driving, stopped};
 
-Turret* turret;
-Drive* drive;
-Pinger* pinger;
-
 State state = initial;
 int stuckCount = 0;
 
+Controller::Controller(Turret* turret, Drive* drive, Pinger* pinger) {
+  this->turret = turret;
+  this->drive = drive;
+  this->pinger = pinger;
+}
+
 void Controller::setup() {
-  turret = new Turret(9);
-  drive = new Drive();
-  pinger = new Pinger(A4, A5);
 }
 
 void Controller::loop() {
