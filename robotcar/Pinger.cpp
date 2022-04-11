@@ -10,11 +10,11 @@
 
 #include "Pinger.h"
 
-Pinger::Pinger(unsigned int triggerPin, unsigned int echoPin) {
 #ifndef FAKE
+Pinger::Pinger(unsigned int triggerPin, unsigned int echoPin) {
 	p_pinger = new NewPing(triggerPin, echoPin, MAX_SENSOR_DISTANCE);
-#endif
 }
+#endif
 
 int Pinger::getObstacleDistanceInches() {
   int numReadings = 4;
@@ -31,6 +31,8 @@ int Pinger::getObstacleDistanceInches() {
   return sumOfReadings/numReadings;
 }
 
+#ifndef FAKE
 Pinger::~Pinger() {
 	delete p_pinger;
 }
+#endif
