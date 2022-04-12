@@ -44,6 +44,7 @@ State Controller::loop(State state) {
   switch (state) {
 	case needToStop:
 		drive->stop();
+    drive->backUpALittle();
 		state = stopped;
 		break;
 	case readyToDrive:

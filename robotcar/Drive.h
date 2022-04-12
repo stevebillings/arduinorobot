@@ -7,4 +7,5 @@ class Drive {
 		void turnLeft();
 		void turnRight();
     		void turnAround();
+        void backUpALittle();
 };

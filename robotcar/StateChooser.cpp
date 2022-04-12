@@ -1,7 +1,7 @@
 #include "State.h"
 #include "StateChooser.h"
 
-#define OBSTACLE_SAFE_DIST_INCHES 6
+#define OBSTACLE_SAFE_DIST_INCHES 8
 #define START_SIGNAL_DIST_INCHES 2
 
 State StateChooser::choose(State currentState, int inchesClearAhead) {
