@@ -2,6 +2,7 @@
 #include "Turret.h"
 #include "Drive.h"
 #include "Pinger.h"
+#include "PingerReal.h"
 #include "State.h"
 #include "Controller.h"
 
@@ -14,7 +15,7 @@ State currentState = initial;
 void setup() {
   turret = new Turret(9);
   drive = new Drive();
-  pinger = new Pinger(A4, A5);
+  pinger = new PingerReal(A4, A5);
   controller = new Controller(turret, drive, pinger);
 
   currentState = controller->setup();
