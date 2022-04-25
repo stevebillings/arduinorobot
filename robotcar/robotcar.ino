@@ -1,5 +1,5 @@
 #include "Mode.h"
-#include "Turret.h"
+#include "TurretReal.h"
 #include "Drive.h"
 #include "Pinger.h"
 #include "PingerReal.h"
@@ -13,7 +13,7 @@ Controller* controller;
 State currentState = initial;
 
 void setup() {
-  turret = new Turret(9);
+  turret = new TurretReal(9);
   drive = new Drive();
   pinger = new PingerReal(A4, A5);
   controller = new Controller(turret, drive, pinger);
