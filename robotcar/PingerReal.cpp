@@ -1,6 +1,5 @@
 #include <Arduino.h>
 #include <NewPing.h> 
-#include "Pinger.h"
 #include "PingerReal.h"
 
 PingerReal::PingerReal(unsigned int triggerPin, unsigned int echoPin) {

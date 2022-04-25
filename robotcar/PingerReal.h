@@ -1,3 +1,4 @@
+#include "Pinger.h"
 #include <NewPing.h> 
 
 class PingerReal : public Pinger {
