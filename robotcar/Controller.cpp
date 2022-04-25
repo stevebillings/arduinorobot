@@ -1,4 +1,3 @@
-#include "Mock.h"
 #include "Turret.h"
 #include "Drive.h"
 #include "Pinger.h"
