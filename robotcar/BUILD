@@ -15,3 +15,9 @@ cc_test(
   srcs = ["test/StateChooserTest.cpp", "robotcar/StateChooser.cpp", "robotcar/StateChooser.h", "robotcar/State.h", "robotcar/StateNamer.h", "robotcar/StateNamer.cpp"],
   deps = ["@com_google_googletest//:gtest_main"],
 )
+
+cc_test(
+  name = "exp",
+  size = "small",
+  srcs = ["test/test.cpp", "robotcar/Pinger.h", "test/PingerMock.h", "test/PingerMock.cpp"],
+)
