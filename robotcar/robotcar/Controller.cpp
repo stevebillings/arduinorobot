@@ -12,27 +12,21 @@
 State state = initial;
 int stuckCount = 0;
 
-Controller::Controller(Turret* turret, Drive* drive, Pinger* pinger) {
-  this->turret = turret;
-  this->drive = drive;
-  this->pinger = pinger;
-}
-
 State Controller::setup() {
 	return state;
 }
 
 State Controller::loop(State state) {
   StateChooser stateChooser;
-  int sensedObstacleDistInchesAhead = pinger->getObstacleDistanceInches();
+  int sensedObstacleDistInchesAhead = pinger.getObstacleDistanceInches();
   int sensedObstacleDistInchesLeft = 0;
   int sensedObstacleDistInchesRight = 0;
   if (state == stopped) {
   	turret->aimLeft();
-  	sensedObstacleDistInchesLeft = pinger->getObstacleDistanceInches();
+  	sensedObstacleDistInchesLeft = pinger.getObstacleDistanceInches();
 
   	turret->aimRight();
-  	sensedObstacleDistInchesRight = pinger->getObstacleDistanceInches();
+  	sensedObstacleDistInchesRight = pinger.getObstacleDistanceInches();
   
   	turret->aimStraight();
   }

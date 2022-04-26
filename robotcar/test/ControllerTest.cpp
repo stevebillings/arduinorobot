@@ -10,13 +10,12 @@ using namespace std;
 
 Turret* turret;
 Drive* drive;
-Pinger* pinger;
 Controller* controller;
 
 TEST(StateChooserTestInitial, BasicAssertions) {
 	turret = new TurretMock();
 	drive = new DriveMock();
-	pinger = new PingerMock(20);
+	PingerMock pinger(20);
 	controller = new Controller(turret, drive, pinger);
 
 	State state = controller->setup();
@@ -27,7 +26,7 @@ TEST(StateChooserTestInitial, BasicAssertions) {
 TEST(StateChooserTestInitialStill, BasicAssertions) {
 	turret = new TurretMock();
 	drive = new DriveMock();
-	pinger = new PingerMock(20);
+	PingerMock pinger(20);
 	controller = new Controller(turret, drive, pinger);
 
 	State state = controller->loop(initial);
@@ -38,7 +37,7 @@ TEST(StateChooserTestInitialStill, BasicAssertions) {
 TEST(StateChooserTestDrivingClear, BasicAssertions) {
 	turret = new TurretMock();
 	drive = new DriveMock();
-	pinger = new PingerMock(20);
+	PingerMock pinger(20);
 	controller = new Controller(turret, drive, pinger);
 
 	State state = controller->loop(driving);
@@ -49,7 +48,7 @@ TEST(StateChooserTestDrivingClear, BasicAssertions) {
 TEST(StateChooserTestDrivingBlocked, BasicAssertions) {
 	turret = new TurretMock();
 	drive = new DriveMock();
-	pinger = new PingerMock(2);
+	PingerMock pinger(20);
 	controller = new Controller(turret, drive, pinger);
 
 	State state = controller->loop(driving);
@@ -60,7 +59,7 @@ TEST(StateChooserTestDrivingBlocked, BasicAssertions) {
 TEST(StateChooserTestStoppedClear, BasicAssertions) {
 	turret = new TurretMock();
 	drive = new DriveMock();
-	pinger = new PingerMock(20);
+	PingerMock pinger(20);
 	controller = new Controller(turret, drive, pinger);
 
 	State state = controller->loop(stopped);
@@ -71,7 +70,7 @@ TEST(StateChooserTestStoppedClear, BasicAssertions) {
 TEST(StateChooserTestStoppedBlocked, BasicAssertions) {
 	turret = new TurretMock();
 	drive = new DriveMock();
-	pinger = new PingerMock(2);
+	PingerMock pinger(2);
 	controller = new Controller(turret, drive, pinger);
 
 	State state = controller->loop(stopped);

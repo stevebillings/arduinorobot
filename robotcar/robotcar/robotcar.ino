@@ -6,14 +6,13 @@
 
 Turret* turret;
 Drive* drive;
-Pinger* pinger;
+PingerReal pinger(A4, A5);
 Controller* controller;
 State currentState = initial;
 
 void setup() {
   turret = new TurretReal(9);
   drive = new DriveReal();
-  pinger = new PingerReal(A4, A5);
   controller = new Controller(turret, drive, pinger);
 
   currentState = controller->setup();
