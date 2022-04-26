@@ -17,6 +17,7 @@ class TurretReal : public Turret {
 		void aimRight();
 		void aimLeft();
 		void aimStraight();
+		~TurretReal();
 };
 
 #endif /* TURRETREAL_H_ */

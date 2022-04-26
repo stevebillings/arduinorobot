@@ -35,3 +35,7 @@ void TurretReal::toAngle(int targetAngle) {
 	servo->write(targetAngle);
         delay(750);
 }
+
+TurretReal::~TurretReal() {
+	delete servo;
+}

@@ -9,7 +9,6 @@
 #define OBSTACLE_SAFE_DIST_INCHES 6
 #define START_SIGNAL_DIST_INCHES 2
 
-
 State state = initial;
 int stuckCount = 0;
 
@@ -24,8 +23,7 @@ State Controller::setup() {
 }
 
 State Controller::loop(State state) {
-  StateNamer* stateNamer = new StateNamer();
-  StateChooser* stateChooser = new StateChooser();
+  StateChooser stateChooser;
   int sensedObstacleDistInchesAhead = pinger->getObstacleDistanceInches();
   int sensedObstacleDistInchesLeft = 0;
   int sensedObstacleDistInchesRight = 0;
@@ -38,7 +36,7 @@ State Controller::loop(State state) {
   
   	turret->aimStraight();
   }
-  state = stateChooser->choose(state, sensedObstacleDistInchesAhead, sensedObstacleDistInchesLeft, sensedObstacleDistInchesRight);
+  state = stateChooser.choose(state, sensedObstacleDistInchesAhead, sensedObstacleDistInchesLeft, sensedObstacleDistInchesRight);
   switch (state) {
 	case needToStop:
 		drive->stop();
