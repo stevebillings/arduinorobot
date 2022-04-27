@@ -7,6 +7,8 @@ enum State {
 	startSignalInProgress,
 	readyToDrive,
 	driving,
+	needToPause,
+	paused,
 	needToStop,
 	stopped,
 	stoppedNeedToTurnLeft,

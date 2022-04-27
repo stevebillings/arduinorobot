@@ -42,10 +42,18 @@ TEST(StateChooserTestContinue, BasicAssertions) {
 	EXPECT_EQ(driving, newState);
 }
 
-TEST(StateChooserTestStop, BasicAssertions) {
+TEST(StateChooserTestPause, BasicAssertions) {
 	StateChooser stateChooser;
 
 	State newState = stateChooser.choose(driving, 5);
+
+	EXPECT_EQ(needToPause, newState);
+}
+
+TEST(StateChooserTestStop, BasicAssertions) {
+	StateChooser stateChooser;
+
+	State newState = stateChooser.choose(paused, 5);
 
 	EXPECT_EQ(needToStop, newState);
 }

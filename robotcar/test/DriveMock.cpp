@@ -10,6 +10,10 @@ void DriveMock::startForward() {
 	printf("DriveMock: starting forward...\n");
 }
 
+void DriveMock::pause() {
+	printf("DriveMock: pausing\n");
+}
+
 void DriveMock::stop() {
 	printf("DriveMock: stopping\n");
 }

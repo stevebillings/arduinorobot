@@ -22,9 +22,15 @@ State StateChooser::choose(State currentState, int inchesClearAhead, int inchesC
 			return currentState;
 		case driving:
 			if (inchesClearAhead < OBSTACLE_SAFE_DIST_INCHES) {
-				return needToStop;
+				return needToPause;
 			}
 			return currentState;
+		case paused:
+			if (inchesClearAhead >= OBSTACLE_SAFE_DIST_INCHES) {
+				return readyToDrive;
+			} else {
+				return needToStop;
+			}
 		case stopped:
 			if (inchesClearAhead >= OBSTACLE_SAFE_DIST_INCHES) {
 				return readyToDrive;

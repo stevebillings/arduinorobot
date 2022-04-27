@@ -10,7 +10,7 @@ using namespace std;
 
 Controller* controller;
 
-TEST(StateChooserTestInitial, BasicAssertions) {
+TEST(ControllerTestInitial, BasicAssertions) {
 	TurretMock turret;
 	DriveMock drive;
 	PingerMock pinger(20);
@@ -21,7 +21,7 @@ TEST(StateChooserTestInitial, BasicAssertions) {
 	EXPECT_EQ(initial, state);
 }
 
-TEST(StateChooserTestInitialStill, BasicAssertions) {
+TEST(ControllerTestInitialStill, BasicAssertions) {
 	TurretMock turret;
 	DriveMock drive;
 	PingerMock pinger(20);
@@ -32,7 +32,7 @@ TEST(StateChooserTestInitialStill, BasicAssertions) {
 	EXPECT_EQ(initial, state);
 }
 
-TEST(StateChooserTestDrivingClear, BasicAssertions) {
+TEST(ControllerTestDrivingClear, BasicAssertions) {
 	TurretMock turret;
 	DriveMock drive;
 	PingerMock pinger(20);
@@ -43,7 +43,7 @@ TEST(StateChooserTestDrivingClear, BasicAssertions) {
 	EXPECT_EQ(driving, state);
 }
 
-TEST(StateChooserTestDrivingBlocked, BasicAssertions) {
+TEST(ControllerTestDrivingBlocked, BasicAssertions) {
 	TurretMock turret;
 	DriveMock drive;
 	PingerMock pinger(2);
@@ -51,10 +51,21 @@ TEST(StateChooserTestDrivingBlocked, BasicAssertions) {
 
 	State state = controller->loop(driving);
 
+	EXPECT_EQ(paused, state);
+}
+
+TEST(ControllerTestPausedBlocked, BasicAssertions) {
+	TurretMock turret;
+	DriveMock drive;
+	PingerMock pinger(2);
+	controller = new Controller(turret, drive, pinger);
+
+	State state = controller->loop(paused);
+
 	EXPECT_EQ(stopped, state);
 }
 
-TEST(StateChooserTestStoppedClear, BasicAssertions) {
+TEST(ControllerTestStoppedClear, BasicAssertions) {
 	TurretMock turret;
 	DriveMock drive;
 	PingerMock pinger(20);
@@ -65,7 +76,7 @@ TEST(StateChooserTestStoppedClear, BasicAssertions) {
 	EXPECT_EQ(driving, state);
 }
 
-TEST(StateChooserTestStoppedBlocked, BasicAssertions) {
+TEST(ControllerTestStoppedBlocked, BasicAssertions) {
 	TurretMock turret;
 	DriveMock drive;
 	PingerMock pinger(2);

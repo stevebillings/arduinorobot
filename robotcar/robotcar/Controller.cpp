@@ -32,6 +32,10 @@ State Controller::loop(State state) {
   }
   state = stateChooser.choose(state, sensedObstacleDistInchesAhead, sensedObstacleDistInchesLeft, sensedObstacleDistInchesRight);
   switch (state) {
+	case needToPause:
+		drive.pause();
+		state = paused;
+		break;
 	case needToStop:
 		drive.stop();
     		drive.backUpALittle();

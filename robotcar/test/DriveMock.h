@@ -4,6 +4,7 @@ class DriveMock : public Drive {
 	public:
 		DriveMock();
 		void startForward() override;
+		void pause() override;
 		void stop() override;
 		void turnLeft() override;
 		void turnRight() override;

@@ -3,7 +3,7 @@
 #include <AFMotor.h>
 
 #define DRIVING_SPEED_RIGHT 170
-#define DRIVING_SPEED_LEFT 150
+#define DRIVING_SPEED_LEFT 140
 // Apparently I reversed +/- on the left wheel
 #define LEFT_WHEEL_FORWARD BACKWARD
 #define LEFT_WHEEL_BACKWARD FORWARD
@@ -30,6 +30,12 @@ void DriveReal::startForward() {
   motorRight.run(RIGHT_WHEEL_FORWARD);
 	motorLeft.setSpeed(DRIVING_SPEED_LEFT);
 	motorRight.setSpeed(DRIVING_SPEED_RIGHT);
+}
+
+void DriveReal::pause() {
+	motorLeft.setSpeed(0);
+	motorRight.setSpeed(0);
+	delay(500);
 }
 
 void DriveReal::stop() {
