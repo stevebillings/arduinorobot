@@ -10,7 +10,7 @@
 #define RIGHT_TO_LEFT_DELTA 4
 
 TurretReal::TurretReal(int pwmPin) {
-	servo = new Servo(); // TODO delete this in dtor
+	servo = new Servo();
   servo->attach(pwmPin);
 	currentAngle = SERVO_STRAIGHT;
 	minAngle = currentAngle;
