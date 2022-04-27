@@ -5,14 +5,13 @@
 #include "Controller.h"
 
 Turret* turret;
-Drive* drive;
+DriveReal drive;
 PingerReal pinger(A4, A5);
 Controller* controller;
 State currentState = initial;
 
 void setup() {
   turret = new TurretReal(9);
-  drive = new DriveReal();
   controller = new Controller(turret, drive, pinger);
 
   currentState = controller->setup();

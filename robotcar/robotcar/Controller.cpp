@@ -33,24 +33,24 @@ State Controller::loop(State state) {
   state = stateChooser.choose(state, sensedObstacleDistInchesAhead, sensedObstacleDistInchesLeft, sensedObstacleDistInchesRight);
   switch (state) {
 	case needToStop:
-		drive->stop();
-    		drive->backUpALittle();
+		drive.stop();
+    		drive.backUpALittle();
 		state = stopped;
 		break;
 	case readyToDrive:
-		drive->startForward();
+		drive.startForward();
 		state = driving;
 		break;
 	case stoppedNeedToTurnLeft:
-		drive->turnLeft();
+		drive.turnLeft();
 		state = stopped;
 		break;
 	case stoppedNeedToTurnRight:
-		drive->turnRight();
+		drive.turnRight();
 		state = stopped;
 		break;
 	case stoppedNeedToTurnAround:
-		drive->turnAround();
+		drive.turnAround();
 		state = stopped;
 		break;
   }

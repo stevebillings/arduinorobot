@@ -9,12 +9,11 @@ using namespace std;
 
 
 Turret* turret;
-Drive* drive;
 Controller* controller;
 
 TEST(StateChooserTestInitial, BasicAssertions) {
 	turret = new TurretMock();
-	drive = new DriveMock();
+	DriveMock drive;
 	PingerMock pinger(20);
 	controller = new Controller(turret, drive, pinger);
 
@@ -25,7 +24,7 @@ TEST(StateChooserTestInitial, BasicAssertions) {
 
 TEST(StateChooserTestInitialStill, BasicAssertions) {
 	turret = new TurretMock();
-	drive = new DriveMock();
+	DriveMock drive;
 	PingerMock pinger(20);
 	controller = new Controller(turret, drive, pinger);
 
@@ -36,7 +35,7 @@ TEST(StateChooserTestInitialStill, BasicAssertions) {
 
 TEST(StateChooserTestDrivingClear, BasicAssertions) {
 	turret = new TurretMock();
-	drive = new DriveMock();
+	DriveMock drive;
 	PingerMock pinger(20);
 	controller = new Controller(turret, drive, pinger);
 
@@ -47,8 +46,8 @@ TEST(StateChooserTestDrivingClear, BasicAssertions) {
 
 TEST(StateChooserTestDrivingBlocked, BasicAssertions) {
 	turret = new TurretMock();
-	drive = new DriveMock();
-	PingerMock pinger(20);
+	DriveMock drive;
+	PingerMock pinger(2);
 	controller = new Controller(turret, drive, pinger);
 
 	State state = controller->loop(driving);
@@ -58,7 +57,7 @@ TEST(StateChooserTestDrivingBlocked, BasicAssertions) {
 
 TEST(StateChooserTestStoppedClear, BasicAssertions) {
 	turret = new TurretMock();
-	drive = new DriveMock();
+	DriveMock drive;
 	PingerMock pinger(20);
 	controller = new Controller(turret, drive, pinger);
 
@@ -69,7 +68,7 @@ TEST(StateChooserTestStoppedClear, BasicAssertions) {
 
 TEST(StateChooserTestStoppedBlocked, BasicAssertions) {
 	turret = new TurretMock();
-	drive = new DriveMock();
+	DriveMock drive;
 	PingerMock pinger(2);
 	controller = new Controller(turret, drive, pinger);
 
