@@ -11,7 +11,7 @@ Controller* controller;
 State currentState = initial;
 
 void setup() {
-  turret = new TurretReal(9);
+  turret = new TurretReal(9); // Not sure why explicit new is required for Turret
   controller = new Controller(*turret, drive, pinger);
 
   currentState = controller->setup();
