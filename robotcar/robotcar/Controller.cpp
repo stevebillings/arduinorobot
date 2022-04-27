@@ -22,13 +22,13 @@ State Controller::loop(State state) {
   int sensedObstacleDistInchesLeft = 0;
   int sensedObstacleDistInchesRight = 0;
   if (state == stopped) {
-  	turret->aimLeft();
+  	turret.aimLeft();
   	sensedObstacleDistInchesLeft = pinger.getObstacleDistanceInches();
 
-  	turret->aimRight();
+  	turret.aimRight();
   	sensedObstacleDistInchesRight = pinger.getObstacleDistanceInches();
   
-  	turret->aimStraight();
+  	turret.aimStraight();
   }
   state = stateChooser.choose(state, sensedObstacleDistInchesAhead, sensedObstacleDistInchesLeft, sensedObstacleDistInchesRight);
   switch (state) {
