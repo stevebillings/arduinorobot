@@ -33,8 +33,7 @@ void DriveReal::startForward() {
 }
 
 void DriveReal::pause() {
-	motorLeft.setSpeed(0);
-	motorRight.setSpeed(0);
+	stop();
 	delay(500);
 }
 
