@@ -6,8 +6,8 @@ class StateChooser {
 		State choose(State currentState, int inchesClearAhead);
 		State choose(State currentState, int inchesClearAhead, int inchesClearLeft, int inchesClearRight);
 	private:
-		const int obstacleSafeDistanceInches = 8;
-		const int startSignalDistanceInches = 2;
+		static const int obstacleSafeDistanceInches = 8;
+		static const int startSignalDistanceInches = 2;
 };
 
 #endif

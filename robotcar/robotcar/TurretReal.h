@@ -11,12 +11,12 @@ class TurretReal : public Turret {
 		int minAngle;
 		int maxAngle;
 		void toAngle(int targetAngle);
-		const int servoStraight = 100;
-		const int servoLeft = 180;
-		const int servoRight = 10;
-		const int shortDelay = 25;
-		const int leftToRightDelta = -4;
-		const int rightToLeftDelta = 4;
+		static const int servoStraight = 100;
+		static const int servoLeft = 180;
+		static const int servoRight = 10;
+		static const int shortDelay = 25;
+		static const int leftToRightDelta = -4;
+		static const int rightToLeftDelta = 4;
 
 	public:
 		TurretReal(int pwmPin);
