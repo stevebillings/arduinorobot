@@ -6,9 +6,6 @@
 #include "StateChooser.h"
 #include "Controller.h"
 
-#define OBSTACLE_SAFE_DIST_INCHES 6
-#define START_SIGNAL_DIST_INCHES 2
-
 State state = initial;
 int stuckCount = 0;
 
