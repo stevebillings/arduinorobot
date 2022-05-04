@@ -4,7 +4,7 @@
 class PingerReal : public Pinger {
 	public:
 		PingerReal(unsigned int triggerPin, unsigned int echoPin);
-		int getObstacleDistanceInches() override;
+		const int getObstacleDistanceInches() const override;
 		~PingerReal();
 	private:
 		NewPing *p_pinger;

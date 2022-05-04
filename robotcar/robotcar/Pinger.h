@@ -1,5 +1,5 @@
 class Pinger {
 	public:
-		virtual int getObstacleDistanceInches() = 0;
+		virtual const int getObstacleDistanceInches() const = 0;
 		virtual ~Pinger() {}
 };

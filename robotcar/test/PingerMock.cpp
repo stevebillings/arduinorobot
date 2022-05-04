@@ -2,11 +2,7 @@
 #include <iostream>
 using namespace std;
 
-PingerMock::PingerMock(int obstacleDistanceInches) {
-	this->obstacleDistanceInches = obstacleDistanceInches;
-}
-
-int PingerMock::getObstacleDistanceInches() {
+const int PingerMock::getObstacleDistanceInches() const {
   cout << "PingerMock.getObstacleDistanceInches() called; returning " << obstacleDistanceInches << endl;
   return obstacleDistanceInches;
 }

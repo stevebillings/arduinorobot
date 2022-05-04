@@ -9,13 +9,13 @@ enum Direction {left, straight, right, none};
 
 class Controller {
 	public:
-    		Controller(Turret& turret, const Drive& drive, Pinger& pinger) :turret{turret}, drive{drive}, pinger{pinger} {}
+    		Controller(Turret& turret, const Drive& drive, const Pinger& pinger) :turret{turret}, drive{drive}, pinger{pinger} {}
 		State setup();
 		State loop(State state);
 	private:
 		Turret& turret;
 		const Drive& drive;
-		Pinger& pinger;
+		const Pinger& pinger;
 		bool pingSensorBlocked(int sensedObstacleDistInches);
 		bool pathIsClear(int sensedObstacleDistInches);
 		void ledBlink(int pin, int numBlinks);
