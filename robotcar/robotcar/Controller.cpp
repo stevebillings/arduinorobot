@@ -7,7 +7,6 @@
 #include "Controller.h"
 
 State state = initial;
-int stuckCount = 0;
 
 State Controller::setup() {
 	return state;
