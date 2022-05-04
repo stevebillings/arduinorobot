@@ -4,13 +4,13 @@
 class DriveReal : public Drive {
 	public:
 		DriveReal();
-		void startForward() override;
-		void pause() override;
-		void stop() override;
-		void turnLeft() override;
-		void turnRight() override;
-    		void turnAround() override;
-	        void backUpALittle() override;
+		void startForward() const override;
+		void pause() const override;
+		void stop() const override;
+		void turnLeft() const override;
+		void turnRight() const override;
+    		void turnAround() const override;
+	        void backUpALittle() const override;
 	private:
 		static const int drivingSpeedRight = 170;
 		static const int drivingSpeedLeft = 140;

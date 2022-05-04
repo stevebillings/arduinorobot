@@ -5,7 +5,7 @@
 #include "Controller.h"
 
 Turret* turret;
-DriveReal drive;
+const DriveReal drive;
 PingerReal pinger(A4, A5);
 Controller* controller;
 State currentState = initial;

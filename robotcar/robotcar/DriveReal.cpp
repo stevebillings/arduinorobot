@@ -14,24 +14,24 @@ DriveReal::DriveReal() {
 	motorRight.run(rightWheelForward);
 }
 
-void DriveReal::startForward() {
+void DriveReal::startForward() const {
   motorLeft.run(leftWheelForward);
   motorRight.run(rightWheelForward);
 	motorLeft.setSpeed(drivingSpeedLeft);
 	motorRight.setSpeed(drivingSpeedRight);
 }
 
-void DriveReal::pause() {
+void DriveReal::pause() const {
 	stop();
 	delay(500);
 }
 
-void DriveReal::stop() {
+void DriveReal::stop() const {
 	motorLeft.setSpeed(0);
 	motorRight.setSpeed(0);
 }
 
-void DriveReal::turnRight() {
+void DriveReal::turnRight() const {
 	motorLeft.run(leftWheelForward);
 	motorRight.run(rightWheelBackward);
 	motorLeft.setSpeed(drivingSpeedLeft);
@@ -43,7 +43,7 @@ void DriveReal::turnRight() {
 	motorRight.setSpeed(0);
 }
 
-void DriveReal::turnLeft() {
+void DriveReal::turnLeft() const {
 	motorLeft.run(leftWheelBackward);
 	motorRight.run(rightWheelForward);
 	motorLeft.setSpeed(drivingSpeedLeft);
@@ -55,12 +55,12 @@ void DriveReal::turnLeft() {
 	motorRight.run(rightWheelForward);
 }
 
-void DriveReal::turnAround() {
+void DriveReal::turnAround() const {
   turnLeft();
   turnLeft();
 }
 
-void DriveReal::backUpALittle() {
+void DriveReal::backUpALittle() const {
 	motorLeft.run(leftWheelBackward);
 	motorRight.run(rightWheelBackward);
 	motorLeft.setSpeed(drivingSpeedLeft);
