@@ -6,7 +6,7 @@
 
 Turret* turret;
 const DriveReal drive;
-PingerReal pinger(A4, A5);
+const PingerReal pinger(A4, A5);
 Controller* controller;
 State currentState = initial;
 
