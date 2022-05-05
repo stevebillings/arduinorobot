@@ -1,11 +1,11 @@
 #include "State.h"
 #include "StateChooser.h"
 
-State StateChooser::choose(State currentState, int inchesClearAhead) {
+const State StateChooser::choose(const State currentState, const int inchesClearAhead) const {
 	return choose(currentState, inchesClearAhead, 0, 0);
 }
 
-State StateChooser::choose(State currentState, int inchesClearAhead, int inchesClearLeft, int inchesClearRight) {
+const State StateChooser::choose(const State currentState, const int inchesClearAhead, const int inchesClearLeft, const int inchesClearRight) const {
 	switch (currentState) {
 		case initial:
 			if (inchesClearAhead <= startSignalDistanceInches) {

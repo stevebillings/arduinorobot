@@ -3,8 +3,8 @@
 
 class StateChooser {
 	public:
-		State choose(State currentState, int inchesClearAhead);
-		State choose(State currentState, int inchesClearAhead, int inchesClearLeft, int inchesClearRight);
+		const State choose(const State currentState, const int inchesClearAhead) const;
+		const State choose(const State currentState, const int inchesClearAhead, const int inchesClearLeft, const int inchesClearRight) const;
 	private:
 		static const int obstacleSafeDistanceInches = 8;
 		static const int startSignalDistanceInches = 2;
