@@ -2,7 +2,7 @@
 
 class PingerMock : public Pinger {
 	public:
-		PingerMock(int obstacleDistanceInches) : obstacleDistanceInches(obstacleDistanceInches) {};
+		PingerMock(const int obstacleDistanceInches) : obstacleDistanceInches(obstacleDistanceInches) {};
 		const int getObstacleDistanceInches() const override;
 		~PingerMock();
 	private:
