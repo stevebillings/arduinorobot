@@ -8,13 +8,13 @@
 
 State state = initial;
 
-State Controller::setup() {
+const State Controller::setup() const {
 	return state;
 }
 
-State Controller::loop(State state) {
-  StateChooser stateChooser;
-  int sensedObstacleDistInchesAhead = pinger.getObstacleDistanceInches();
+const State Controller::loop(State state) const {
+  const StateChooser stateChooser;
+  const int sensedObstacleDistInchesAhead = pinger.getObstacleDistanceInches();
   int sensedObstacleDistInchesLeft = 0;
   int sensedObstacleDistInchesRight = 0;
   if (state == stopped) {
@@ -52,6 +52,8 @@ State Controller::loop(State state) {
 	case stoppedNeedToTurnAround:
 		drive.turnAround();
 		state = stopped;
+		break;
+	default:
 		break;
   }
   return state;

@@ -10,7 +10,7 @@ class TurretReal : public Turret {
 		int currentAngle;
 		int minAngle;
 		int maxAngle;
-		void toAngle(int targetAngle);
+		void toAngle(int targetAngle) const;
 		static const int servoStraight = 100;
 		static const int servoLeft = 180;
 		static const int servoRight = 10;
@@ -20,9 +20,9 @@ class TurretReal : public Turret {
 
 	public:
 		TurretReal(int pwmPin);
-		void aimRight();
-		void aimLeft();
-		void aimStraight();
+		void aimRight() const;
+		void aimLeft() const;
+		void aimStraight() const;
 		~TurretReal();
 };
 

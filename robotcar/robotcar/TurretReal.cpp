@@ -10,21 +10,21 @@ TurretReal::TurretReal(int pwmPin) {
 	maxAngle = currentAngle;
 }
 
-void TurretReal::aimRight() {
+void TurretReal::aimRight() const {
 	toAngle(servoRight);
 }
 
-void TurretReal::aimLeft() {
+void TurretReal::aimLeft() const {
 	toAngle(servoLeft);
 }
 
-void TurretReal::aimStraight() {
+void TurretReal::aimStraight() const {
 	toAngle(servoStraight);
 }
 
 // private
 
-void TurretReal::toAngle(int targetAngle) {
+void TurretReal::toAngle(int targetAngle) const {
 	servo->write(targetAngle);
         delay(750);
 }

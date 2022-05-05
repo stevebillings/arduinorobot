@@ -10,10 +10,10 @@ enum Direction {left, straight, right, none};
 class Controller {
 	public:
     		Controller(Turret& turret, const Drive& drive, const Pinger& pinger) :turret{turret}, drive{drive}, pinger{pinger} {}
-		State setup();
-		State loop(State state);
+		const State setup() const;
+		const State loop(State state) const;
 	private:
-		Turret& turret;
+		const Turret& turret;
 		const Drive& drive;
 		const Pinger& pinger;
 		bool pingSensorBlocked(int sensedObstacleDistInches);

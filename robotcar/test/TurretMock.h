@@ -2,7 +2,7 @@
 
 class TurretMock : public Turret {
 	public:
-		void aimRight() override;
-		void aimLeft() override;
-		void aimStraight() override;
+		void aimRight() const override;
+		void aimLeft() const override;
+		void aimStraight() const override;
 };
